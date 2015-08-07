@@ -1,1303 +1,1134 @@
-6766dea
+31464b
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Scan_Veracode extends CI_Controller
 
 {
-  0722cb 9bcfe9477 9 95581df7a4
+  d594d0 98c6f9a73 e 75a52685b
   public $backup_predot_suffix = "bak4";
  // an underscore will be added, alphanum only
   public $backup_predot_suffixes_previous = array(
     "bak1",
-    e77344d2f
+    c037cd6e
     "bak3"
   );
   public $regex_envelope_spaces = array(
     "front" => '/^[ \t]*',
-    2cdd1a 08 58 bced569568
+    35e6a2 0c 1d d0c07f75a
   );
   public $regex_envelope = array(
 
     "front" => '/',
-    931e84 28 3a23a2
+    c6bf2d 61 e0f4a
   );
   public $switch_filemodify_onoff = 0;
  /*0 for modify off, 1 for on*/
   public $switch_backup_onoff = 0;
- bc0 931 312a2 04fc bc9684 9aca 
-
- 3b7 d16 22c9fb 4eec 49 0c b78 7
-63b7 d1602
+ de1 edc cc869 37fc 814806 a8bf 
+ de1 edc cc8691 7fce 14 06 a8b 5
+9de1 edcfc
   public function __construct()
 
-  29
+  {
     parent::__construct();
-    38db994d85dd669f583bdcd2289a
-342538db99
+    cf994147cbd272df02492c7e4ad2
+5023cf9941
     $this->catalogs = array(
-      59c7f069cf d2 7e90c9a
+      "catalog1" => array(
         "this_catalog" => array(
           array(
-            8e5f5269 82 04b188 8
-79c74efc
-            7287a2f28 f4 cce3a5 
-3650f5cdf2157287a2f28df41cce3a54
-3650f5cdf2157287a2f28 f41cce3 54
-3650f5 df2 572 7a2f 8df41cce3a54
+            c58a6410 05 7070a8 e
+eb252b3c
+            "replace" => 'print SingletonHtmlPurifier::get_instance()->purify($html);', /*space sensitive but not case sensitive*/
             "restrict2filenames" => array(
               "class.progressbar.php"
             ) , /*empty array turns pattern match off*/
-            6804797c236c ba 620a
-d8d
+            8a8fbbefb2e4 ee 3cb9
+c0
               ".php",
               ".inc"
             ) , /*empty array for filter off: search on all extensions*/
             "linenumberfilter" => array(
-              695b011 5c eefaa
+              8247d52 c8 d29f
               "ceiling" => 55
             ) ,
             /*linenumberfilter: scalar -1 for off for all lines, array array("floor"=>301,"ceiling"=>306) for filtering search on line numbers 301 to 313 inclusively*/
           ) ,
-          ec41dbd1
+          c389e2a
             "search" => '\$self = \$\_SERVER\[\"PHP_SELF\"\];',
             "replace" => '$self = strip_tags($_SERVER["PHP_SELF"]);',
             "restrict2filenames" => array(
               "class.qbr.php",
-              a28a0df5dd807340f4
-
-0
+              a70f3108070f62df26
+f
             ) , /*empty array turns pattern match off*/
             "extensions" => array(
               ".php",
-              e93e521
-            e 2 d213b1c 6da2d 55
- bd7961 b065 e2dd21 b1 86d 2dc55
-7bd7961
+              ".inc"
+            f 2 85d7fd7 d3496 14
+ cc2708 5968 02785d fd dd3 96214
+0cc2708
             "linenumberfilter" => - 1,
-            44458bbb068f180617e 
-8daa2 68 7dd 445 bbb 68f 80617e 
-8daa 06897dd44458bbb068f180617e8
-8daa20 897 d44458bbb 68f180 17 8
-8d a206897 d44 58 bb0 8f180617e8
-8da
-          ) ,
-          array(
-            df21aa46 a9 a0d03c c
-b0637 d5 6eddf 1aa464a96a0d03ccc
-f58 de 00750fc5dcd880a218e68ff0f
-
-b0637bd5b6eddf2 aa464a96a0d03ccc
-b0637bd5
-            "replace" => 'print SingletonHtmlPurifier::get_instance()->purify($style . "<div class=\'alert\'>$msg <a href=\'../index.php?type=$type\'>Go back</a></div>");',
-            "restrict2filenames" => array(
-              7066898169c5246fee
-
-            ) , /*empty array turns pattern match off*/
-            78687b821c23 3d 164c
-03
-              ".php",
-              192b40c
-            ) , /*empty array for filter off: search on all extensions*/
-            "linenumberfilter" => - 1,
-            a5e3bda1a50134cc4c2 
-91857 fa dd7 5e3 da1 501 4cc4c2 
-6e57 dc5f2f9c13f9d1b57833cd60b36
-
-91857a a1d 7a5e3bda1 50134c 4c 2
-91 57afa1d 7a5 3b a1a 0134cc4c22
-918
-          ) ,
-          604d6ef
-            "search" => 'echo \"Error loading \$fullpath\";',
-            "replace" => 'echo SingletonHtmlPurifier::get_instance()->purify("Error loading $fullpath");',
-            2568ccd2b4ebf80f055e 5c cfdf5e4
-              "class.vendorform.php"
-            e f 510e02b d12e0 12
-22 2fdcd59 6eef4 10e02b
-            "extensions" => array(
-              ".php",
-              bbd2176
-            ) , /*empty array for filter off: search on all extensions*/
-            59e9390a905178004d 5
- 0 af7
             /*linenumberfilter: scalar -1 for off for all lines, array array("floor"=>301,"ceiling"=>306) for filtering search on line numbers 301 to 313 inclusively*/
           ) ,
-          1f40cea
-            "search" => 'echo \"\<li\>\<a href=\'\" \. \$_\SERVER\[\'PHP_SELF\'\] \. \"\?id=\$id\'\>\$name\<\/a\>\<\/li\>\"\;',
-            80a129a3a fb f9f98 0
-97e9786a658d80a129a3a4fbcf9f9810
-97e9786a658d80a129 3a4fbcf9 9 10
-97e9786a658d80a129a a fbcf9f9810
-97e9786a658d80a129a3
+          array(
+            80ae0ea3 03 8fbc7a 0
+a4fa3 c6 35280 e0ea3c03b8fbc7a90
+a4f 3d 6835280ae0ea3c03b8fbc7a90
+a4fa3dc6835280a 0ea3c03b8fbc7a90
+a4fa3dc6
+            "replace" => 'print SingletonHtmlPurifier::get_instance()->purify($style . "<div class=\'alert\'>$msg <a href=\'../index.php?type=$type\'>Go back</a></div>");',
             "restrict2filenames" => array(
-              "class.vendorlist.php"
-            1 0 6b904f1 84591 83
-f7 09b4a27 a160d b904f1
-            085c0fbc4a55 77 6d5f
-4c
+              "class.rebate.php"
+            ) , /*empty array turns pattern match off*/
+            1e57b43a06e7 c6 f252
+1c
               ".php",
               ".inc"
             ) , /*empty array for filter off: search on all extensions*/
-            265fa4596acb3d43ab 0
- 4 d0bf
+            "linenumberfilter" => - 1,
+            5d29a96124f74897b06 
+80d5b 50 630 d29 961 4f7 897b06 
+80d5 e50b6305d29a96124f74897b06b
+80d5be 0b6 05d29a961 4f7489 b0 b
+80 5be50b6 05d 9a 612 f74897b06b
+80d
+          ) ,
+          array(
+            "search" => 'echo \"Error loading \$fullpath\";',
+            "replace" => 'echo SingletonHtmlPurifier::get_instance()->purify("Error loading $fullpath");',
+            ebcc6ceaa5aff8143488 d7 8333fa0
+              "class.vendorform.php"
+            ) , /*empty array turns pattern match off*/
+            "extensions" => array(
+              ".php",
+              a6e67c0
+            ) , /*empty array for filter off: search on all extensions*/
+            "linenumberfilter" => - 1,
+            /*linenumberfilter: scalar -1 for off for all lines, array array("floor"=>301,"ceiling"=>306) for filtering search on line numbers 301 to 313 inclusively*/
+          ) ,
+          5c3d20e
+            "search" => 'echo \"\<li\>\<a href=\'\" \. \$_\SERVER\[\'PHP_SELF\'\] \. \"\?id=\$id\'\>\$name\<\/a\>\<\/li\>\"\;',
+            "replace" => 'echo SingletonHtmlPurifier::get_instance()->purify("<li><a href=\'" . $_SERVER[\'PHP_SELF\'] . "?id=$id\'>$name</a></li>");',
+            "restrict2filenames" => array(
+              "class.vendorlist.php"
+            d 2 cca2e2a 7f37f 05
+4a b76404b 5d625 ca2e2a
+            "extensions" => array(
+              ".php",
+              ".inc"
+            ) , /*empty array for filter off: search on all extensions*/
+            e3f610cec64501de9b 4
+ 7 078
             /*linenumberfilter: scalar -1 for off for all lines, array array("floor"=>301,"ceiling"=>306) for filtering search on line numbers 301 to 313 inclusively*/
           ) ,
           array(
             "search" => '\<h1\>\<\?php echo \$heading; \?\>\<\/h1\>',
-            adda3b0b5 a3 adbec57
-
-8b f20b de329678c52d35ab3f083872
-8b4f20b7de32 678c52d35a
+            e29ed52de e9 c2cec91
+39 592e 56ebe29ed52de9e9ac2cec91
+399592e456eb 29ed52de9e
             "restrict2filenames" => array(
               "error_404.php"
-            b 4 add8fe2 cd06b 60
-6f e47df8f 7b44e dd8fe2
-            "extensions" => array(
-              e50f089b
-              ".inc"
-            ) , /*empty array for filter off: search on all extensions*/
-            ccf53b80e452d6d401 3
- a 131
-            /*linenumberfilter: scalar -1 for off for all lines, array array("floor"=>301,"ceiling"=>306) for filtering search on line numbers 301 to 313 inclusively*/
-          d be
-          array(
-            "search" => '\<\?php echo \$message; \?\>',
-            48a6582ba 33 79addc 
-63e 305bbbcf48a6582ba233b79addca
-63ea305b bcf48
-            "restrict2filenames" => array(
-              a51830a1b1dae17d
             ) , /*empty array turns pattern match off*/
             "extensions" => array(
-              a217443a
+              0fa3a549
               ".inc"
-            1 2 affc5dd 3d448 f5
- a791cf 229e f28aff 5d 03d 48bf5
-1a791cf
-            6d16b099474186ef84 7
- 9 6e7
+            ) , /*empty array for filter off: search on all extensions*/
+            "linenumberfilter" => - 1,
+            /*linenumberfilter: scalar -1 for off for all lines, array array("floor"=>301,"ceiling"=>306) for filtering search on line numbers 301 to 313 inclusively*/
+          b c0
+          array(
+            "search" => '\<\?php echo \$message; \?\>',
+            "replace" => '<?php echo $this->security->xss_clean($message); ?>',
+            "restrict2filenames" => array(
+              5d1818017eca6000
+            ) , /*empty array turns pattern match off*/
+            "extensions" => array(
+              ".php",
+              ".inc"
+            0 6 3765dee 37564 ec
+ c87acf 9929 767376 de 337 64eec
+3c87acf
+            "linenumberfilter" => - 1,
             /*linenumberfilter: scalar -1 for off for all lines, array array("floor"=>301,"ceiling"=>306) for filtering search on line numbers 301 to 313 inclusively*/
           ) ,
           array(
-            f9c07cbb 02 d4d6c6e8
-65838cb c92e80f 4b7f 29efa314688 65838cb3c92e80f
+            c6d7e8b0 a2 84692927
+b963d06 ce08c6d e8b0 a2d84692927 b963d06ece08c6
             "replace" => '<p>Severity: <?php echo strip_tags($severity); ?></p>',
             "restrict2filenames" => array(
               "error_php.php"
             ) , /*empty array turns pattern match off*/
-            8eefff58ddfa 32 a29e
-
-93
+            4e055dd201fa 4e 222e
+2d
               ".php",
               ".inc"
             ) , /*empty array for filter off: search on all extensions*/
-            b6d6e5fac0639f3f9e 9
- 5 7fd
-          0 a1
+            "linenumberfilter" => - 1,
+          d 58
           array(
             "search" => '\<p\>Message\:  \<\?php echo \$message; \?\>\<\/p\>',
             "replace" => '<p>Message:  <?php echo strip_tags($message); ?></p>',
-            b8867f20cac5cc3be9a1 23 dedb761
-              85e8443a6e7a1b74
+            "restrict2filenames" => array(
+              8414552a4cf27174
             ) , /*empty array turns pattern match off*/
             "extensions" => array(
               ".php",
-              f70f77d
-            2 b f2498a5 ecdc6 0f
- 61c800 f6f1 2baf24 8a 7ec c680f
-f61c800
+              ".inc"
+            7 b 07b748a 58a0a 70
+ d822df 4f50 db007b 48 758 0a370
+ed822df
             "linenumberfilter" => - 1,
-          0 03
+          ) ,
           array(
             "search" => '<p>Filename\: \<\?php echo \$filepath; \?\>\<\/p\>',
-            e79b588fa 01 f401fef
-08767 7ce91 e79b 88fa5013f401fef
-be92cc 28ba35dae0
+            96c37ea35 f8 6fb792b
+63f6a 48ca3 96c3 ea352f8c6fb792b
+63f6ad 8ca3696c3
             "restrict2filenames" => array(
               "error_php.php"
             ) , /*empty array turns pattern match off*/
             "extensions" => array(
-              06d29aa66
+              3dbfca66
               ".inc"
             ) , /*empty array for filter off: search on all extensions*/
             "linenumberfilter" => - 1,
           ) ,
-          aea71870
+          5bded6e
             "search" => '\<p\>Line Number\: \<\?php echo \$line; \?\>\<\/p\>',
             "replace" => '<p>Line Number: <?php echo strip_tags($line); ?></p>',
             "restrict2filenames" => array(
               "error_php.php"
-            e 5 32b7e3d 9fc38 a3
-
-60 a0896dd 2b9f6 a61119
+            f a 0a88967 9ab57 24
+ca 7124cce bf9a6 a88967
             "extensions" => array(
               ".php",
               ".inc"
-            a 8 11f48c8 45ada f7
- e32336 a019 88211f 8c 745 da2f7
-0e32336
-            372208da667ae958af 8
- 0 2c5
+            ) , /*empty array for filter off: search on all extensions*/
+            c7dee78337d274fd5f f
+ e 734
           ) ,
           array(
-            e30abab5 bb b22cf170 5cb9 07e9e7 e30abab
+            "search" => '\<\?php echo \$msg; \?\>',
             "replace" => '<?php echo SingletonHtmlPurifier::get_instance()->purify($msg); ?>',
-            f96484d67da1d5242d15 18 970189b 6 96484d6 da1d5 42d15 18e9701 9b96f 6484d6
+            2f5a2ff56ace38fbdc8b 7e 478d7db 8 f5a2ff5 ace38 bdc8b 7ea478d db282 5a2ff5
             "extensions" => array(
               ".php",
-              6f5025c
-            ) , /*empty array for filter off: search on all extensions*/
-            f2190d02e8d262becb 6
- 0 e5e
-          ) ,
-          760a85b
-            "search" => '\: \<span class="name"\>\<\?php echo \$_smarty_tpl\-\>getVariable\(\'loggedin_username\'\)\-\>value;\?\>',
-            "replace" => ': <span class="name"><?php echo strip_tags($_smarty_tpl->getVariable(\'loggedin_username\')->value);?>',
-            d8661ef63f25ec858d25 3d 10dbd33 2 8661ef6 f25ec 58d25 3db10db 3372d 661ef6
-            "extensions" => array(
-              30731841
               ".inc"
             ) , /*empty array for filter off: search on all extensions*/
-            ce6835ff6154fcb62b 2
- 5 008
-          5 f0
+            d20f24bcdf250260ee 8
+ a 618
+          ) ,
+          array(
+            "search" => '\: \<span class="name"\>\<\?php echo \$_smarty_tpl\-\>getVariable\(\'loggedin_username\'\)\-\>value;\?\>',
+            "replace" => ': <span class="name"><?php echo strip_tags($_smarty_tpl->getVariable(\'loggedin_username\')->value);?>',
+            1ca4069ddabef98d45da 76 7885391 0 ca4069d abef9 d45da 7657885 91e01 a4069d
+            "extensions" => array(
+              ".php",
+              ".inc"
+            ) , /*empty array for filter off: search on all extensions*/
+            7978561067c0f42ed8 6
+ 3 c2a
+          ) ,
           /**
            manually escape . \
            ' or "
-           31fe 1b49f 5d1826cda6
-915a
+           0d00 c6dfa f2e3901a9a
+c54
            */
           array(
             "search" => $this->regex_str_esc('<img src="\.\./images/title-add-report-<?php echo $_smarty_tpl->getVariable(\'lang\')->value;?>') ,
             "replace" => '<img src="../images/title-add-report-<?php echo strip_tags($_smarty_tpl->getVariable(\'lang\')->value);?>',
-            f9f1ba2952bd9d5395dc a6 d7bcf16 cf9
+            05db211c2f26a5c34ba2 3f 50cd1a6 f0
             "extensions" => array(
               ".php",
               ".inc"
             ) ,
-            59ca15cd3d03dd1806 6
-
- a c79
+            836dec198f8d33cd24 7
+ 3 82f
           ) ,
           array(
             "search" => $this->regex_str_esc('<form enctype="multipart/form-data" name="healthcheck_form" id="healthcheck_form" class="form" method="post" action="<?php echo $_SERVER[\'PHP_SELF\'];?>') ,
-            419e0a5bd 58 ec09dc 
-697d004f8654419e0a5bdf58eec0 dcd
-697d004f8654419e0a5 df58eec09dcd
-697d004f 654419e0a5bd 58eec09dcd
-69 d004f8654419e a5bd 58eec09dcd
-697d004f8654419e0a5bdf58eec09
-            6de9e76431d53a0f91e2 90 f0f2840 e6
+            "replace" => '<form enctype="multipart/form-data" name="healthcheck_form" id="healthcheck_form" class="form" method="post" action="<?php echo strip_tags($_SERVER[\'PHP_SELF\']);?>',
+            374611d8c90b03098fc5 9b bda691e 93
             "extensions" => array(
               ".php",
               ".inc"
-            1 2e
-            8d9200f89c5daa6d42 8
- e 12e
+            ) ,
+            f04214063d4af522e5 0
+ d 728
           ) ,
           array(
-            49da99a0 04 529b6877
-0b89e9cde62d49da99a a04e529b6877 0b8 e9cde62d4 da99a0a04e529b6877
-0b89e9 de62d49da99a0a04e529b68 7
-0b89e9cde 2d49da99a0a04e5 9b6877
-0b89e9 de62d 9da 9a0a04e5 9b6877
-0b89e cde62d49da99 0a04 529b6877
-0b89e9cde62d49da99a0a04e529b6877
-0b89e9cde62d49da99a a0
+            "search" => $this->regex_str_esc('<input class="field rep required" name="customer_citystate" id="customer_citystate" type="text" maxlength="150" title="Please enter the customer city/state." value="<?php echo $_smarty_tpl->getVariable(\'customer_citystate\')->value;?>') ,
             "replace" => '<input class="field rep required" name="customer_citystate" id="customer_citystate" type="text" maxlength="150" title="Please enter the customer city/state." value="<?php echo $purifier->purify($_smarty_tpl->getVariable(\'customer_citystate\')->value);?>',
-            3daf9de09ce50c1052b5 21 6d7bdec b3
+            730d25b07a55d102fbc0 c8 a1e8af4 57
             "extensions" => array(
               ".php",
-              e92fdb0
-            ) ,
-            ddd81edb30f895ef1c 2
- 7 943
-          ) ,
-          b5cda00
-            "search" => $this->regex_str_esc('<legend><?php echo $_smarty_tpl->getConfigVariable(\'provide_manufactuer_spec_info\');?>') ,
-            "replace" => '<legend><?php echo $purifier->purify($_smarty_tpl->getConfigVariable(\'provide_manufactuer_spec_info\'));?>',
-            6299fe85418e72e08519 4d e2968f4 b6
-            "extensions" => array(
-              98409b7f
               ".inc"
             ) ,
-            116856456912216695 8
- 6 373
-          d e5
+            705f1eac12fa836ae9 b
+ 0 fe7
+          ) ,
+          array(
+            "search" => $this->regex_str_esc('<legend><?php echo $_smarty_tpl->getConfigVariable(\'provide_manufactuer_spec_info\');?>') ,
+            "replace" => '<legend><?php echo $purifier->purify($_smarty_tpl->getConfigVariable(\'provide_manufactuer_spec_info\'));?>',
+            4e5ba420c1b089150b60 49 177abba b4
+            "extensions" => array(
+              ".php",
+              ".inc"
+            ) ,
+            5e045cfb799ad78f57 d
+ f 348
+          ) ,
           array(
             "search" => $this->regex_str_esc('<label for="addtl_audit_datacenter_cooling"><?php echo $_smarty_tpl->getConfigVariable(\'cooling\');?>') ,
             "replace" => '<label for="addtl_audit_datacenter_cooling"><?php echo $purifier->purify($_smarty_tpl->getConfigVariable(\'cooling\'));?>',
-            2946687fe6e9f136d63a 5e 43aa1df 42
-            df9a944f7efd 49 5234
-fa
+            2b383ceab05c717bfcca 4b 9afcf8d 52
+            "extensions" => array(
               ".php",
               ".inc"
             ) ,
-            11f52c3157835a792d e
- 8 dcae
+            b9acffc02e809d30a6 5
+ 0 b65
           ) ,
           array(
             "search" => $this->regex_str_esc('<textarea class="textarea ignore" name="dcdiscovery_q1" cols="170" rows="5" id="dcdiscovery_q1"><?php echo $_smarty_tpl->getVariable(\'dcdiscovery_q1\')->value;?>') ,
             "replace" => '<textarea class="textarea ignore" name="dcdiscovery_q1" cols="170" rows="5" id="dcdiscovery_q1"><?php echo $purifier->purify($_smarty_tpl->getVariable(\'dcdiscovery_q1\')->value);?>',
-            e3f48e8ff0de61d46da3 5d 34e197a 7e3
+            f38ffe77657bc0747549 2f 7141802 3f
             "extensions" => array(
               ".php",
               ".inc"
             ) ,
-            75a8979f02f19b27d1 6
-
- 0 e3b
+            80addb7a20604dee94 4
+ 2 917
           ) ,
           array(
             "search" => $this->regex_str_esc('<textarea class="textarea ignore" name="dcdiscovery_q2" cols="170" rows="5" id="dcdiscovery_q2"><?php echo $_smarty_tpl->getVariable(\'dcdiscovery_q2\')->value;?>') ,
-            0f0ead38f e4 6065b17
-86 b1fcbc4c60f0ead 8fbe476 65b17
-86eb1fcbc4c60f0 ad38fbe476 65b17
-86 b1fcbc4c60f0ead38fbe47606 b17
- 6eb1fcbc4c60f0ead38fbe476065b17
-86eb1fcbc4c60f0ead38fbe476065b17
-86eb1fcbc4c6
-            4a565c79eb85bff02053 ff 831e649 84
+            "replace" => '<textarea class="textarea ignore" name="dcdiscovery_q2" cols="170" rows="5" id="dcdiscovery_q2"><?php echo $purifier->purify($_smarty_tpl->getVariable(\'dcdiscovery_q2\')->value);?>',
+            0055600584518f684cfe 72 6eb326a f0
             "extensions" => array(
               ".php",
               ".inc"
-            1 45
-            084001f1278cb6daa4 e
- a 0f9
+            ) ,
+            f3f93c8aa52d1b8a01 4
+ 4 0b2
           ) ,
           array(
-            56ee7215 52 727e4f61
-dfb3398ce91756ee7215c5 e727e4f61
-dfb33 8ce9175 ee7215c52e727e4f61
-df 3398ce9175 ee7215c5 e727e4f61
-dfb3398ce91756e 7215 52e727e4f61
-dfb3398ce91756ee7215c52e727e4f61
-dfb3398ce917 6e
+            "search" => $this->regex_str_esc('<textarea class="textarea ignore" name="dcdiscovery_q3" cols="170" rows="5" id="dcdiscovery_q3"><?php echo $_smarty_tpl->getVariable(\'dcdiscovery_q3\')->value;?>') ,
             "replace" => '<textarea class="textarea ignore" name="dcdiscovery_q3" cols="170" rows="5" id="dcdiscovery_q3"><?php echo $purifier->purify($_smarty_tpl->getVariable(\'dcdiscovery_q3\')->value);?>',
-            d5363fdef74a9ea2f202 66 7b3cb80 7d
+            6674ea12e79a83e32ddc fe 5873704 46
             "extensions" => array(
               ".php",
-              2cb4855
-            ) ,
-            89a86c2bfc54a80e39 3
- b f02
-          ) ,
-          f2925ba
-            "search" => $this->regex_str_esc('<textarea class="textarea ignore" name="dcdiscovery_q4" cols="170" rows="5" id="dcdiscovery_q4"><?php echo $_smarty_tpl->getVariable(\'dcdiscovery_q4\')->value;?>') ,
-            "replace" => '<textarea class="textarea ignore" name="dcdiscovery_q4" cols="170" rows="5" id="dcdiscovery_q4"><?php echo $purifier->purify($_smarty_tpl->getVariable(\'dcdiscovery_q4\')->value);?>',
-            6469c07699f080629311 b3 81772e0 56
-            "extensions" => array(
-              88588b6a
               ".inc"
             ) ,
-            ed8f34a8e7cf6fabef 2
- 0 c9b
-          a 8b
+            05d427df782822ee94 3
+ 0 dd4
+          ) ,
+          array(
+            "search" => $this->regex_str_esc('<textarea class="textarea ignore" name="dcdiscovery_q4" cols="170" rows="5" id="dcdiscovery_q4"><?php echo $_smarty_tpl->getVariable(\'dcdiscovery_q4\')->value;?>') ,
+            "replace" => '<textarea class="textarea ignore" name="dcdiscovery_q4" cols="170" rows="5" id="dcdiscovery_q4"><?php echo $purifier->purify($_smarty_tpl->getVariable(\'dcdiscovery_q4\')->value);?>',
+            6c77ddbd0136c15635d2 80 e7451fb 46
+            "extensions" => array(
+              ".php",
+              ".inc"
+            ) ,
+            fd035e2660bad44910 2
+ 4 677
+          ) ,
           array(
             "search" => $this->regex_str_esc('<textarea class="textarea ignore" name="dcdiscovery_q5" cols="170" rows="5" id="dcdiscovery_q5"><?php echo $_smarty_tpl->getVariable(\'dcdiscovery_q5\')->value;?>') ,
             "replace" => '<textarea class="textarea ignore" name="dcdiscovery_q5" cols="170" rows="5" id="dcdiscovery_q5"><?php echo $purifier->purify($_smarty_tpl->getVariable(\'dcdiscovery_q5\')->value);?>',
-            038491fe2d9928a1fcca 6c d2d8504 50
-            e67de0e681c5 73 fdac
-ad
+            7821429afde41691b264 bd cfdc72e 47
+            "extensions" => array(
               ".php",
               ".inc"
             ) ,
-            0abd159e08cec711a0 a
- 4 6f26
+            966412bda3d69f9d73 4
+ b 181
           ) ,
           array(
             "search" => $this->regex_str_esc('<textarea class="textarea ignore" name="dcdiscovery_q6" cols="170" rows="5" id="dcdiscovery_q6"><?php echo $_smarty_tpl->getVariable(\'dcdiscovery_q6\')->value;?>') ,
             "replace" => '<textarea class="textarea ignore" name="dcdiscovery_q6" cols="170" rows="5" id="dcdiscovery_q6"><?php echo $purifier->purify($_smarty_tpl->getVariable(\'dcdiscovery_q6\')->value);?>',
-            8486541af5dabd4f0f2a 1d 6c8259e 784
+            49dca52d39b2a8cdf27d ad f0b5234 b4
             "extensions" => array(
               ".php",
               ".inc"
             ) ,
-            2a92d811f60de5debc b
-
- e 4cb
+            54742fa8bfc8e08594 6
+ 9 0d4
           ) ,
           array(
             "search" => $this->regex_str_esc('<textarea class="textarea ignore" name="dcdiscovery_q7" cols="170" rows="5" id="dcdiscovery_q7"><?php echo $_smarty_tpl->getVariable(\'dcdiscovery_q7\')->value;?>') ,
-            ed95ca5f0 3a 859f2f4
-31 bbd24b055ed95ca f0d3af8 9f2f4
-312bbd24b055ed9 ca5f0d3af8 9f2f4
-31 bbd24b055ed95ca5f0d3af859 2f4
- 12bbd24b055ed95ca5f0d3af859f2f4
-312bbd24b055ed95ca5f0d3af859f2f4
-312bbd24b055
-            5095850778dfa819362c ce be47bec c5
+            "replace" => '<textarea class="textarea ignore" name="dcdiscovery_q7" cols="170" rows="5" id="dcdiscovery_q7"><?php echo $purifier->purify($_smarty_tpl->getVariable(\'dcdiscovery_q7\')->value);?>',
+            374a6d79576425c6d9b7 07 08d3070 63
             "extensions" => array(
               ".php",
               ".inc"
-            6 41
-            7a1c31a02ea030b061 a
- b da5
+            ) ,
+            c2b2cf200a77f8338d e
+ 4 ef6
           ) ,
           array(
-            6108566d 31 4a35711b
-d2732d2989566108 66df31c4a35711b
-d 732d2989566108566df3 c4a35711b
-d2732d298956 108566df31c4a 5711b
-d2732d2 8956 108566df31c4a35711b
- 273 d2989566108566df31c4a35711b
-d 732d298956610856 df31c4a35711b
-d2732d2989 66108566df31c4a 5711b
- 2732d29895661085 6d
+            "search" => $this->regex_str_esc('<td colspan="3"><form id="InstallSecurity" name="InstallSecurity" method="post" action="<?php echo $_SERVER["PHP_SELF"] ?>" enctype="multipart/form-data" onsubmit="return CheckForm(this);"><input style="display: none;" type="submit">') ,
             "replace" => '<td colspan="3"><form id="InstallSecurity" name="InstallSecurity" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" enctype="multipart/form-data" onsubmit="return CheckForm(this);"><input style="display: none;" type="submit">',
-            cf05dec3f77e32a22bea 3c 52e2b85 5c
+            2cf69ead37c9a047aed9 b8 0b4640e 82
             "extensions" => array(
               ".php",
-              660b4ae
-            ) ,
-            c3e58538d429581dbd 7
- b 16f
-          ) ,
-          195bc76
-            "search" => $this->regex_str_esc('echo "<input type=\'hidden\' name=\'customer_id\' value=\'"\.$_SESSION[id]\."\' />";') ,
-            "replace" => 'echo "<input type=\'hidden\' name=\'customer_id\' value=\'"\.$purifier->purify($_SESSION[id])\."\' />";',
-            d901fda0e6c90d0c9cf8 e0 7537fbf ad
-            "extensions" => array(
-              ac962852
               ".inc"
             ) ,
-            f73393e7c7f5fbfe8b 1
- a 234
-          8 db
+            4babfd15dca194da9b 6
+ b f4c
+          ) ,
+          array(
+            "search" => $this->regex_str_esc('echo "<input type=\'hidden\' name=\'customer_id\' value=\'"\.$_SESSION[id]\."\' />";') ,
+            "replace" => 'echo "<input type=\'hidden\' name=\'customer_id\' value=\'"\.$purifier->purify($_SESSION[id])\."\' />";',
+            92a3b513dc4e4bc8982b 32 3a23d11 29
+            "extensions" => array(
+              ".php",
+              ".inc"
+            ) ,
+            ddbe8562bdf8f9620e 9
+ 5 0ce
+          ) ,
         ) ,
         "switch_catalog_scan_onoff" => 0, /*0 for scan off, 1 for on*/
         /* "base_directory"=>"../admin2/dshoda/test_veracode_content",*/
-        8addf72de8653c46 57 3f48
-1e
+        4495da4a803673a9 ea ec6e
+0
         "recursive_scan" => true,
       ) /* end this_catalog */
       , /* end catalog1 */
       "catalog2" => array(
-        46e0bee86d6b30 f1 d007e6
-
+        2d10e34825e119 7d 6d2db4
 
           array(
             "search" => $this->regex_str_esc('print $row[\'document\'];') ,
             "replace" => 'print SingletonHtmlPurifier::get_instance()->purify($row[\'document\']);',
-            b723742a5cb36025d5bf cb 890803c
-              26db102fb3
+            "restrict2filenames" => array(
+              c6787422de
             ) ,
             "extensions" => array(
               ".php",
-              3578750
-            d 53
+              ".inc"
+            1 1b
             "linenumberfilter" => - 1,
           ) ,
           array(
-            c588f519 d7 ba8dda2b
-206aedc9ecbfc588f519cd7dba8d a2b
-2 6aedc9e bfc58 f519 d7dba8dda2b
-206aedc9ecbfc5 8f519cd7db 8d
-            a5f0d146c 06 9de96e8
-5f79cafe 43aa5 0d146c7 6e9de 6e8
- f79cafec43aa5f0d146c706e9de96e8
-5f79cafec43aa5f0d146 706e9de96e8
-            a989373ae73d8951a458 2c d30e32c
+            "search" => $this->regex_str_esc('<title>Customer Usage Report: <?php echo $_SERVER[\"HTTP_HOST\"];?> </title>') ,
+            502758249 43 584e11a
+663414d0 2ba50 758249d 39584 11a
+ 63414d012ba502758249d439584e11a
+663414d012ba50275824 d439584e11a
+            "restrict2filenames" => array(
               "view_csv_usage_log.php"
             ) ,
             "extensions" => array(
-              60ed7e40
-              1244ff7
+              58909eb1
+              ".inc"
             ) ,
             "linenumberfilter" => - 1,
           ) ,
-          40d811c
-            0ecfb331 ef fa324da6
-d6f105073fb10ecfb3317ef0f 324da 
-d6f105 73fb1 ecfb 317ef0fa324da6
-d6f105073fb 0ecfb33 7e
+          96d94d4
+            "search" => $this->regex_str_esc('<h1>Customer Usage Report: <?php echo $_SERVER[\"HTTP_HOST\"];?> </h1>') ,
             "replace" => '<h1>Customer Usage Report: <?php echo $this->security->xss_clean($_SERVER["HTTP_HOST"]);?> </h1>',
             "restrict2filenames" => array(
               "view_csv_usage_log.php"
-            9 02
-            641f7d95dcc8 4f 12bd
-df
+            8 cf
+            "extensions" => array(
               ".php",
               ".inc"
             ) ,
-            ac7c90e709197f3781 4
- d ca49
+            47348d2d3c52d03e04 8
+ f dfa
           ) ,
         ) ,
         "switch_catalog_scan_onoff" => 0, /*0 for scan off, 1 for on*/
         /* "base_directory"=>"../admin2/dshoda/test_veracode_content",*/
-        77bcbe24c60c40c1 ad 810c
-
-4
+        879bc374bbdf046c 62 9053
+3
         "recursive_scan" => true,
       ) /* end this_catalog */
       , /* end catalog1 */
-      81b87399f9 28 92623c4
-        c7fb0e17f5246d e9 e2c456
+      "catalog3" => array(
+        e44c3a8dea230d c6 835bf2
 
           array(
             "search" => $this->regex_str_esc('$ubicacion_url = $_GET[\'ubicacion\'];') ,
-            e02a75436 d7 32b3257
-46ccbde 3 d0e02a75436ad7732b3257
-46ccbde93cd0e
+            "replace" => '$ubicacion_url = strip_tags($_GET[\'ubicacion\']);',
             "restrict2filenames" => array(
-              4a8c310c90d66b42
+              ebce8c28cece9d28
             ) ,
-            "extensions" => array(
-              4b699bb0
-              ".inc"
-            0 20
-            "linenumberfilter" => array(
-              "floor" => 1,
-              53d40578b 2a 70
-            ) ,
-          2 00
-          array(
-            "search" => $this->regex_str_esc('$headers = "From: " \. $_POST["name"] \. "<" \. $_POST["email"] \.">\\\\r\\\\n";') ,
-            1fcc1819d 3e ad0e31b
-9 b 182cf8 7 f c1819dd3e8ad0e31b
-97bd182c 8 71f c 819dd3e8ad0e31b
-97bd182cf8c 1fcc1819dd3e
-            "restrict2filenames" => array(
-              f9129323d214f9eeeb
-009
-              "email.php"
-            0 c1
             "extensions" => array(
               ".php",
-              9c66387
+              ".inc"
+            2 82
+            "linenumberfilter" => array(
+              "floor" => 1,
+              "ceiling" => 5
             ) ,
-            07ec8c05546d93c011 3
- 5 31b
+          9 e7
+          array(
+            "search" => $this->regex_str_esc('$headers = "From: " \. $_POST["name"] \. "<" \. $_POST["email"] \.">\\\\r\\\\n";') ,
+            "replace" => '$headers = "From: " . strip_tags($_POST["name"]) . "<" . strip_tags($_POST["email"]) .">\r\n";',
+            "restrict2filenames" => array(
+              5154c9df3e13ced4c5
+e52
+              "email.php"
+            ) ,
+            "extensions" => array(
+              ".php",
+              5e300e1
+            ) ,
+            "linenumberfilter" => - 1,
           ) ,
           array(
-            32b9cae8 f3 4767d0d0
-a2eeda8e708432b9cae8d 3e4 67d0d0
-237 6 8d d67966893721b89 37 b2cd
-
-a2eeda8e70 43
+            1e465523 22 e1380dcd
+2550175273121e465523c 21e 380dcd
+255 1 52 3121e465523c221 13 0dcd
+2550175273 21
             "replace" => '$headers .= "Reply-To: " . strip_tags($_POST["email"]) . "\r\n";',
             "restrict2filenames" => array(
               "emailinventory.php",
-              f6e8f8f7a513
-            7 c9
+              "email.php"
+            8 28
             "extensions" => array(
               ".php",
               ".inc"
-            a 4c
-            6bc314cbae939d00f7 f
- b 234
+            ) ,
+            7d409372dd0638fa6a 1
+ 8 108
           ) ,
           array(
-            e520cfb5 f2 79cfd133
-9661e46aad6fe520cfb54 267 cfd133
-9661e4 a d6 e520cfb54f2679cfd1 3
-
+            "search" => $this->regex_str_esc('$headers \.= "Return-path: " \. $_POST["email"];') ,
             "replace" => '$headers .= "Return-path: " . strip_tags($_POST["email"]);',
-            20dfd36e4ac02352eae7 85 a39d75c
+            0452a44a0687ae560433 54 513f82d
               "emailinventory.php",
               "email.php"
-            d 48
-            "extensions" => array(
-              19aae04b
-              ".inc"
-            ) ,
-            24dcbde1a2ed164d0d 1
- 3 bdb
-          ) ,
-          ffab811
-            "search" => $this->regex_str_esc('$message = "A leads submission list has been sent by: " \. $_POST["name"] \. "\\\\n\\\\n" \. "These are the selected leads:" \. "\\\\n\\\\n" \. $_POST["selectedLeads"];') ,
-            "replace" => '$message = "A leads submission list has been sent by: " .strip_tags( $_POST["name"]) . "\n\n" . "These are the selected leads:" . "\n\n" . strip_tags($_POST["selectedLeads"]);',
-            93967da6840316bdb40f 4a 67d0d1a
-              "emailinventory.php",
-              c907cd3633b9
             ) ,
             "extensions" => array(
-              46cbbd21
+              aff9f2ba
               ".inc"
-            e 1b
+            ) ,
             "linenumberfilter" => - 1,
           ) ,
-          876092c
+          332f19f
+            "search" => $this->regex_str_esc('$message = "A leads submission list has been sent by: " \. $_POST["name"] \. "\\\\n\\\\n" \. "These are the selected leads:" \. "\\\\n\\\\n" \. $_POST["selectedLeads"];') ,
+            "replace" => '$message = "A leads submission list has been sent by: " .strip_tags( $_POST["name"]) . "\n\n" . "These are the selected leads:" . "\n\n" . strip_tags($_POST["selectedLeads"]);',
+            "restrict2filenames" => array(
+              "emailinventory.php",
+              d4ef457967f1
+            ) ,
+            "extensions" => array(
+              ".php",
+              ".inc"
+            a 17
+            "linenumberfilter" => - 1,
+          ) ,
+          array(
             "search" => $this->regex_str_esc('$subject = $_REQUEST["subject"];') ,
-            749f27d60 da d095af9
-6 d 85e4f603749f27d60ada1d095af9
-6edf85e4f6037
-            cfc3da0b74d3b757e78d 06 13daf5d
+            3cdb9b9ed b9 3b349b7
+5 6 1604a7cb3cdb9b9ed5b9e3b349b7
+5d691604a7cb3
+            "restrict2filenames" => array(
               "email_accessories.php"
             ) ,
             "extensions" => array(
-              85b99edd
-              0b3655e
+              a6cf3691
+              ".inc"
             ) ,
             "linenumberfilter" => - 1,
           ) ,
-          1e3d24a
-            40dd9686 c4 d1dda78e
-838a4bb6b02340dd9686d 4 d1dda78e
-838a4bb6b02340 d9
+          117addf
+            "search" => $this->regex_str_esc('$message = $_REQUEST["message"];') ,
             "replace" => '$message = htmlspecialchars($_REQUEST["message"]);',
             "restrict2filenames" => array(
               "email_accessories.php"
-            9 65
-            4a7c071f2299 46 0eb2
-07
+            0 2f
+            "extensions" => array(
               ".php",
               ".inc"
             ) ,
-            c8e77293b2f4c54ffc 8
- 2 cdb1
+            8ee5929f52d5047b7c d
+ 6 d5a
           ) ,
           array(
             "search" => $this->regex_str_esc('$sender = $_REQUEST["sender"];') ,
             "replace" => '$sender = htmlspecialchars($_REQUEST["sender"]);',
-            93acd448c692409b2e2c 96 5f06cbde
+            32f3f2dfdc96414bb087 ab f975b5f
               "email_accessories.php"
             ) ,
             "extensions" => array(
               ".php",
-              4438fdfe
+              d1630ac
             ) ,
             "linenumberfilter" => - 1,
           ) ,
           array(
-            e005db91 81 dcb1c78c
-
-a8fccd53b22e5b43defad6ecf 8 1568
-a8fccd53b22e5b43defad6 cf
+            e75c1df2 06 39445fef
+97963939f901e75c1df250603 4 5fef
+97963939f901e75c1df250 03
             "replace" => '$contactInfo = htmlspecialchars($_REQUEST["contactInfo"]);',
             "restrict2filenames" => array(
-              f8d35dd028957e3d19
-6c907
+              "email_accessories.php"
             ) ,
-            b277e8af1b02 e7 23b9
-be
+            c29fd91978dc b7 d696
+a4
               ".php",
-              a16d075
+              ".inc"
             ) ,
             "linenumberfilter" => - 1,
-          4 33
+          1 17
           array(
-            b1d44f99 52 f9f5e454
-6cb8a004758fb1d44f 9f521f9f5 4 4
-6cb8a004758fb1d44f9 f5
+            "search" => $this->regex_str_esc('}else $_referer = $_POST["_referer"];') ,
             "replace" => '}else $_referer = strip_tags($_POST["_referer"]);',
             "restrict2filenames" => array(
-              3bfc0b53cd08
+              04e86d7e979d
             ) ,
-            c3ae75279713 20 9b5d
-8b
+            "extensions" => array(
               ".php",
               ".inc"
-            5 13
+            8 b9
             "linenumberfilter" => - 1,
-          8 ee
+          ) ,
           array(
             "search" => $this->regex_str_esc('$headers = "From: " \. $_POST["requester_name"] \. "<" \. $_POST["requester_email"] \.">\\\\r\\\\n";') ,
-            c5a227ac2 ad 84f4aa7
-2 6 cc6e83 f 5a 27ac2bad784f4aa7
-225d13870aae6d37235 28 1b9 7e a4
-
-2561cc6e837fc5a227ac2bad784f4aa7
-2 61cc6e837fc5a
+            52482d0e8 54 67327a7
+d 7 f6cfc0 9 24 2d0e8d54667327a7
+d47af6cfc00952482d0 8d 466 32 a7
+d47af6cfc00952482d0e8d54667327a7
+d 7af6cfc009524
             "restrict2filenames" => array(
               "email.php"
-            9 d0
+            ) ,
             "extensions" => array(
-              89d74d48
+              cb59bd8f
               ".inc"
             ) ,
-            29ecbfb9cfc86e4b1f e
- d a9e
+            "linenumberfilter" => - 1,
           ) ,
-          0be95dd
+          2cb23d4
             "search" => $this->regex_str_esc('$headers \.= "Reply-To: " \. $_POST["requester_email"] \. "\\\\r\\\\n";') ,
             "replace" => '$headers \.= "Reply-To: " . strip_tags($_POST["requester_email"]) . "\r\n";',
-            08f563790ce653550d04 f6 5ff163f
-              "email.php"
-            2 74
-            "extensions" => array(
-              ".php",
-              acaa7ee
-            ) ,
-            3db8677f7363a1cec0 0
- 0 2aa
-          ) ,
-          dab9b24
-            "search" => $this->regex_str_esc('$headers \.= "Return-path: " \. $_POST["requester_email"];') ,
-            "replace" => '$headers \.= "Return-path: " \. strip_tags($_POST["requester_email"]);',
-            c1c347b94c94d7603c3f 27 44b6b4e
-              "email.php"
-            e 2c
-            "extensions" => array(
-              ".php",
-              84c4e98
-            ) ,
-            a3337b5221fee30e6e 5
- 9 88a
-          ) ,
-          /*Issue with this email*/
-          4f585ff
-            "search" => $this->regex_str_esc('$message = strip_tags($_POST[requester_name]) \. " ("\.strip_tags($_POST[requester_email])\.") made a lead(s) request on "\.$date_on\." at "\.$date_at\."\.  It was made from a(n) "\.$customer_company_name \. " account login on edgebps\.com\.\\\\n\\\\n";') ,
-            2d472aefe 17 6c52094
-7 c 2f590f722d472aefeb17b6c52094
-7fcd2 59 f 22d472aefeb17b6c52094
-7fcd2f590f722d472aefe 17b6 5 094
-7fc 2f590f7 2d 72aefeb17b6c52 94 7fcd2f590f722d47  ef b17 6c52 94
-7 cd2f 90f722d472aefeb17b6c52094 7f d f590f72 d472a fe 17b6c52094
-7fcd2f590f72
             "restrict2filenames" => array(
               "email.php"
-            b 71
+            2 4c
             "extensions" => array(
-              321c0070
+              ".php",
               ".inc"
             ) ,
-            62ac7f20321b640826 b
- f 235
-          8 f6
+            7f7288d7b6bbd790bf d
+ e 5e5
+          ) ,
+          array(
+            "search" => $this->regex_str_esc('$headers \.= "Return-path: " \. $_POST["requester_email"];') ,
+            "replace" => '$headers \.= "Return-path: " \. strip_tags($_POST["requester_email"]);',
+            a467ebc5d8289f73e77a 24 9f23aa3
+              "email.php"
+            ) ,
+            "extensions" => array(
+              ".php",
+              f5ab49b
+            ) ,
+            "linenumberfilter" => - 1,
+          ) ,
+          /*Issue with this email*/
+          06afc09
+            "search" => $this->regex_str_esc('$message = strip_tags($_POST[requester_name]) \. " ("\.strip_tags($_POST[requester_email])\.") made a lead(s) request on "\.$date_on\." at "\.$date_at\."\.  It was made from a(n) "\.$customer_company_name \. " account login on edgebps\.com\.\\\\n\\\\n";') ,
+            "replace" => '$message = strip_tags($_POST[requester_name]) \. " ("\.strip_tags($_POST[requester_email])\.") made a lead(s) request on "\.$date_on\." at "\.$date_at\."\.  It was made from a(n) "\.$customer_company_name \. " account login on edgebps\.com\.\n\n";',
+            "restrict2filenames" => array(
+              "email.php"
+            2 bc
+            "extensions" => array(
+              ".php",
+              ".inc"
+            ) ,
+            f015b695fed2afdb9f 8
+ 7 af7
+          ) ,
           array(
             "search" => $this->regex_str_esc('$message = "A opportunities submission list has been sent by: " \. $_POST["name"] \. "\\\\n\\\\n" \. "These are the opportunities leads:" \. "\\\\n\\\\n" \. $_POST["selectedLeads"];') ,
             "replace" => '$message = "A opportunities submission list has been sent by: " \. strip_tags($_POST["name"]) \. "\\\\n\\\\n" \. "These are the opportunities leads:" \. "\\\\n\\\\n" \. strip_tags($_POST["selectedLeads"]);',
-            98201ca4719dae322add 9f 3257f37
-              2b67a99369ae
+            354fdb99151264750ee7 1e b8fe93e
+              "email.php"
             ) ,
             "extensions" => array(
               ".php",
-              209ed92
-            5 4a
+              b71f4c7
+            ) ,
             "linenumberfilter" => - 1,
           ) ,
           array(
-            b7f8f8a9 84 faa7a4c5
-799203a3fe0c77a7e6 f 4f72a7217b0
-
-e0e869 c3
+            70f660a5 92 496ff13f
+db7ad4c92d4770f660 5 924496ff13f
+db7ad4 92
             "replace" => '$file = strip_tags($_GET[\'file\']);',
             "restrict2filenames" => array(
               "index.php"
-            e 7c
-            f674365a578e a7 e953
-46
+            ) ,
+            329ebb95d409 d5 4e74
+1c
               ".php",
               ".inc"
-            0 9f
+            ) ,
             "linenumberfilter" => - 1,
-          1 29
+          8 57
           array(
             "search" => $this->regex_str_esc('$password = $_POST[\'accountPassword\'];') ,
-            713028b8f 4a 9f0b428
-ce 4 b51f27e713028b8f84a59f0b428
-ceb4bb51f27e713
+            "replace" => '$password = strip_tags($_POST[\'accountPassword\']);',
             "restrict2filenames" => array(
-              f50ab992343
+              15f74501fa7
             ) ,
             "extensions" => array(
-              8a0fb35c
+              ".php",
               ".inc"
-            3 36
+            a 70
             "linenumberfilter" => - 1,
           ) ,
-          d4ba456
+          array(
             "search" => $this->regex_str_esc('^$_referer = $_POST["_referer"];') ,
-            a7c4a4c67 45 66303a1
-b0 3 dd6ff62a7c4a4c67845066303a1
-b0131d
-            bd9167b6b206a1c27810 c4 d0f5b64
+            c5a99a20b ea eb061ca
+e2 2 fe61495c5a99a20b0ea5eb061ca
+e2729f
+            "restrict2filenames" => array(
               "index.php"
             ) ,
             "extensions" => array(
-              9732a508
-              efb953a
+              049f3057
+              ".inc"
             ) ,
             "linenumberfilter" => - 1,
           ) ,
-          452
-          c5c3429
+          6b6
+          array(
           "search"=>
           $this->regex_str_esc(
           ''
-          ac2
-          33dfbcd5d52e
+          d51
+          "replace"=>
           ''
           ,
           "restrict2filenames"=>array("email_accessories.php"),
-          a435c24105913832952b1e
-da774cf2ea4725
+          afaf71ef746beb7ac90b4b
+9e90a21ddcafa
           "linenumberfilter"=>-1,
           ),
           */
         ) ,
-        6efecf62135281e8654d0019
-
-2c 2d 52 4b6 411 b9c3 31ba 7 235 2c82d
+        a18c91da945b4c1144cefefc
+9d 8b c5 18c 1da 45b4 1144 e efc 9da8b
         /* "base_directory"=>"../admin2/dshoda/test_veracode_content",*/
         "base_directory" => "../..",
         "recursive_scan" => true,
-      b e8 317 de080f5f3efd 55f
-      ed 1 f65
+      ) /* end this_catalog */
+      3e 2 440
       /* end catalog1 */
     );
   }
-  7761
-   f 5f873 1a21 21a 965a d4c9ab5
-a2cf
+  /**
+   b c0112 fd25 6e7 da18 637e760
+9f8b
    *
    * Maps to the following URL
-   6    e0cff36a6b6cf75548ee9b44
-f7262915e0cf
+   *    http://example.com/index.php/welcome
    *  - or -
-   d    b7c5fda2fc7b37173bd986e6
-4d5d0400b7c5fda2fc
+   e    d9bfb0fd6f2add81ad277bcf
+dace7662d9bfb0fd6f
    *  - or -
-   f a3f7c 0e84 db4cd2f866 31 89
- 27 da3 7c60e84 db4cd2f866 31a
+   * Since this controller is set as the default controller in
    * config/routes.php, it's displayed at http://example.com/
    *
-   c c6 838 457a6 6320a3 2538a4b 99c 7c648380 57a6 63 0a382538a4 
-99cc
-   0 8b4 fa f2ed5ae0eace0dbd0f2c
-a1a068b48fa4
+   3 6d 4fa a5870 d707de 9e4617c 8a9 16db4fa8 5870 d7 7dee9e4617 
+8a93
+   * map to /index.php/welcome/<method_name>
    * @see http://codeigniter.com/user_guide/general/urls.html
    */
   public function index()
-f
-  20
+d
+  {
     // $this->load->model('Model_leads_xml2db_transform');
     // $data['next_upload_id_result'] = $this->Model_leads_xml2db_transform->get_next_upload_id_result();
     // $data['xml'] = simplexml_load_file(BASEPATH.'../../../xml/content/leads/BPS_Leads.xml');
-    41 a081e5a5adbcb855dd3d67e60
-68e0 fc480dec9
+    4b e3020b72f0918048c17903058
+93b5 b9e3020b
   }
   public function content()
 
   {
-    26f0f4 50b387d75 243a6dbf412 af4826f0f45
+    3298ae 1acc3a641 d560d8a29a3 45833298ae
     global $extension_counter;
     global $found_num_lines, $fileList, $found_num_files;
     global $regex_current;
     // $this->array_helpers->testing();
-    e096e012b88f6e7753 a dec4
+    23994a92dffe48a897 8 470
     foreach($this->catalogs AS $key_catalog => $val_catalog) {
       if ($val_catalog["switch_catalog_scan_onoff"] == 1) $catalogs_on_count++;
     }
     if ($catalogs_on_count > 1) {
-      bf5f 7e83ac2 cce9 fad 67bd
-
-ca 0fb e7 45 886 a30938e
+      d3c7 7fd252f 5584 522 eb3a
+62 d0a 3c 27 d25 f955844
       exit;
     }
     if ($catalogs_on_count < 1) {
-      96e2 2e13e6e 38 d151462d e
-6 800b 6e2d e13 6e 38 d15 462d4e
-
-      f38355
+      echo "error: no catalogs on, must have one on to run scan";
+      b61403
     }
     foreach($this->catalogs AS $key_catalog => $val_catalog) {
       if ($val_catalog["switch_catalog_scan_onoff"] != 1) continue;
-      8990 e6bbeff
-      7e6b ee32 beb4d
+      echo "<p>";
+      e1e8 17bb b8987
       echo "</p>";
       echo "<p>";
       echo "<b>" . $key_catalog . " Scan START</b>";
-      a57c c24beeed
-      cce827476f437b134687044664
-4386c4cce 27 76f437b134687044664 43
+      echo "</p>";
+      16ea915a994df0de86c4662a71
+b1be5a16e 91 a994df0de86c4662a71 b1
         echo "Catalog Top Level Directory Start: " . $val_catalog["base_directory"];
         echo "<br/>";
-        65e3 8ba6976 7e180961 b8
-f48c f 465e398ba697657e1809618b8
-f48caf3465e398ba 9 657e1809618
+        echo "Search Pattern: <code>" . htmlentities($this_catalog_item["search"]) . "</code>";
         echo "<br/>";
-        bc02 10b382cb 394b764 4d
-c529 8 1bc02610b382cb9394b76444d
-c529f801bc02610b3 2 b9394b76444
-        10ac 3c3dfc70a
+        9fce 90674211 73064cc 1a
+1b8a f b9fcee90674211b73064cc21a
+1b8a0ffb9fcee9067 2 1b73064cc21
+        echo "<br/>";
         echo "Backup On/Off Switch: " . $this->switch_backup_onoff;
         echo "<br/>";
         echo "File Modify On/Off Switch: " . $this->switch_filemodify_onoff;
-        ec66 8a769af61
-        222d b2cfdd40a d3 ef455c
-2c9 9a3
+        377c ba3247546
+        echo "Restrict to Filenames: ";
         echo "<br/>";
         foreach($this_catalog_item["restrict2filenames"] AS $k => $v) echo $v . " ";
         if (sizeof($this_catalog_item["restrict2filenames"]) == 0) echo "[ all ]";
-        8db8 82c69f7b6
-        71bb 3e58248 721787 27fd
-4f 9 5 d71bba3e582484721787c27fd
-4fd
+        68da e75bc0e84
+        echo "Backup Predot Suffix: " . $this->backup_predot_suffix;
         echo "<br/>";
         echo "Backup Previous Predot Suffix: ";
         echo "<br/>";
-        881f87d415e2cdcf73844929
-ceafce5af811f97b89daf be ec 8f 0
-
-4 8c5f b8 1 8 d41
+        82dd61cbe967e8772eaddf0e
+f84ac8d882dd61cbe967e 77 ea df e
+f 4ac8 88 d 6 cbe
         echo "<br/>";
         echo "Filetype(s)/extension(s): ";
         foreach($this_catalog_item["extensions"] AS $k => $v) echo $v . " ";
-        ae 4454d6da0edacd13e19c2
-919ec087ae14454d6da ed cd 3e19 2
- 19e 087a
-        bc79 d38d3b4ff
+        if (sizeof($this_catalog_item["extensions"]) == 0) echo "[ all ]";
+        c4a2 afae6753e
         echo "File line number filter: ";
         print_r($this_catalog_item["linenumberfilter"]);
         $found_num_lines = 0;
-        69c66d8984bc5c5d a 16c
-        999ab61e7baeb8456b 4 6e3
+        $found_num_files = 0;
+        8f480afa095ec375cb d 041
         $counter = 0;
         echo "<p>";
         /*
-        40c15c8 61
-        3e5e7fb67df45ba5da35a526
-49e6
+        $nfiles =
+        190a66685a4c7d483c93443d
+37e1
         $this_catalog_item["search"],$this_catalog_item["replace"],$val_catalog["base_directory"], $val_catalog["recursive_scan"],
         $counter,$this_catalog_item["extensions"],$this_catalog_item["linenumberfilter"]);
-        531
+        */
         $nfiles = $this->scanContent_getFiles($val_catalog, $this_catalog_item, $counter, $val_catalog["base_directory"]);
-        cf7f 0008b501
+        a6b3 6a85a846
         echo "<p>";
         echo "<b>Searched " . $extension_counter . " files recursively on base directory and all subdirectories of base directory</b><br/>";
-        cd04 4b8d8 e dcf6d7e2aa3
-7e1e 1 d d0464b8d8 e3dcf d7 2 a 
-7e1ea1adcd0464b d 8 3dcf6 7e2 a3
-7e1ea1adc
+        echo "<b>" . $found_num_lines . " match(es) found in " . $found_num_files . " files for </b><br/>";
         echo "<b>replaced line(s) matching <br/><code>" . htmlentities($this_catalog_item["search"]) . "</code></b><br/>";
-        1f7f 4c132d64 3e0eafd 76
-1e12abc21 7 c4c132d64c3e0eafd676
-1e12abc21f7fc4c132d64c e eafd676
-a8203c16755f5
+        509b 11a2f790 320b7c7 74
+dc9add705 9 e11a2f7904320b7c7874
+dc9add70509be11a2f7904 2 b7c7874
+dc9add70509b
         echo "</p>";
         echo "<p>";
         echo "=================================";
         echo "</p>";
-      c7f
+      93
       echo "<p>";
       echo "<b>" . $key_catalog . " Scan DONE</b>";
       echo "</p>";
     }
-  394
+  08
   /**
    * Return the number of files that resides under a directory.
    *
    * @return integer
-   8 c3fac8    39261b 3d52066e82   c87 3fac8ed1b 926 b53d 20 6e82
-
- 7a4
+   5 383bf7    ae0f63 1d550d607e   957 83bf77b97 e0f 3d1d 50 607e
+ 795
    * @param    boolean (optional)  Recursive counting. Default to FALSE.
    * @param    integer (optional)  Initial value of file count
    */
-  9b  741d01c9 e9451d20c10a7865d
-a19b35741d01c92e9451d20c10a7865 
-a19b35741d01c92e 451d20c10a7865d
-a19b35741d01c92e9451d20c1 a7
-  3bf27c11 3afef660e5b6245ebc379
-263bf27c1103 fef660e5b6245ebc379 263bf27c 1 3a ef660e
+  //  function scanContent_getFiles($regex_search,$replace,$dir, $recursive=false, $counter=0,$extensions,$linenumberfilter) {
+  e10a83dc a24c9b80fecdec6309b9e
+ace10a83dcaa 4c9b80fecdec6309b9e ace10a83 c a2 c9b80f
   {
     global $counter; //recursion increment
-    197d3f ef3d66c28384e4893b46
+    global $extension_counter;
     if (trim($this_catalog_item["search"]) == '' || !isset($this_catalog_item["search"])) {
-      8a09 b9836e7 f51d63 32 56b
-f66 898a098b 836 76f51d
+      855a 99b1c19 56ae15 70 b62
+a3d 3e855a29 b1c 9e56ae
       exit;
-    40
+    }
     if (is_dir($dir)) {
       if ($dh = opendir($dir)) {
-        ae2bc 6387129 3 918b2b05
-913a 45b e2bc76 87
-          30 f1fb77 6a 246 e4 b8
-26 a2 ec85 0c 1fb7756a7246be46b8
-267a28ec8 30 f1 b7
+        82722 6ab4d2f a 9d127a99
+84eb c01 2722b6 b4
+          if ($file != "." && $file != ".." && $this->is_backup_file($file) != 1) {
             $counter = (is_dir($dir . "/" . $file)) ? $this->scanContent_getFiles($val_catalog, $this_catalog_item, $counter, $dir . "/" . $file) : $counter + 1;
             if (!is_dir($dir . "/" . $file)) { //only files, no dirs
               if (sizeof($this_catalog_item["extensions"]) == 0 && (in_array($file, $this_catalog_item["restrict2filenames"]) || sizeof($this_catalog_item["restrict2filenames"]) < 1)) {
-                7d3
-                1779 576a8d5b78d
-44f9c67608f
+                a4c
+                echo "-------------------";
                 echo "<br/>";
                 echo "Searching: ".realpath($dir."/".$file);
                 echo "<br/>";
-                fe52 806 f26e7 f
-2fe4 6224c 28f7688aca1c88044b43e
-
-5d0b376d9fe16e02fe521806bf26e7cf
-5d0b376
+                d4a1 43a faf87 5
+720e 27e53 72c26d4a1c43adfaf87a5
+720e127e53672c26d4a1c43adfaf87a5
+720e127
                 echo "for replace line: <code>".htmlentities($this_catalog_item["replace"])."</code>";
                 */
-                3673bb90303ea7 1 f74ac0d25ed35f0a3673bb90303ea7 1 f74 c d25ed3 f a3673bb90303ea791
-f74ac0d25ed 5f0a3673bb90303ea791
-f74ac0d25 d35f0a3673bb90303ea791
-f74ac0d25ed35f0a36
+                $matches_found = $this->readLines(realpath($dir . "/" . $file) , $this_catalog_item["search"], $this_catalog_item["replace"], $this_catalog_item["linenumberfilter"]);
                 if ($matches_found > 0) {
-                  72bf 38d390840
+                  a7db f92ff267a
                   echo "---------";
                   echo "<br/>";
-                  b31a 95728a2 0
-f07da a08c2ac1238
+                  echo "Search matches returned";
                   echo "<br/>";
-                  d88d 81c8241e6
-d24c 4 a 7b08d3d22 88da81c8
+                  a8a4 460673fba
+15bb 8 5 1ac19d82d 8a4d4606
                   echo "<br/>";
-                  e164 8cc 9 d 8
-bafebacf431 e 55a e 6448cca9
+                  echo "in " . realpath($dir . "/" . $file);
                   echo "<br/>";
                   echo "on regex search line: " . htmlentities($this_catalog_item["search"]);
-                  11f0 0cc14cc41
+                  a8c2 26426d384
                   echo "for replace line: " . htmlentities($this_catalog_item["replace"]);
-                fc
+                }
                 else {
                   echo "<br/>";
-                  e565 373edee17
-336
-                  e53f 84f487713
+                  8014 a8de095a9
+341
+                  echo "<br/>";
                   echo "Search matches not returned from search in ";
                   echo "<br/>";
                   echo "in " . realpath($dir . "/" . $file);
-                  f18d 41600e19d
-                  f795 405 84f1e c60e5b b43ad 3 9 7f795a405184f1e
-c60e5bdb43ad8349d7f795a40518
+                  811d 6eca3872b
+                  echo "on regex search line: " . htmlentities($this_catalog_item["search"]);
                   echo "<br/>";
                   echo "for replace line: " . htmlentities($this_catalog_item["replace"]);
                 }
-                510b15d41752d8aa
-4bf6ba
+                2d7ea8544d0be363
+6649b
               }
               else {
                 foreach($this_catalog_item["extensions"] AS $k => $v) {
                   if (strpos($dir . "/" . $file, $v, 1) && (in_array($file, $this_catalog_item["restrict2filenames"]) || sizeof($this_catalog_item["restrict2filenames"]) < 1)) {
-                    bd9c
+                    a18
                     echo "-------------------";
                     echo "<br/>";
                     echo "Searching: ".realpath($dir."/".$file);
                     echo "<br/>";
-                    59c9 1b2 6ee
-
-0 6c08e3 98b31 f975e0104f54e4e3b
-036c08e3398b315f975e0104f54e
+                    b9ca 40b 921
+8 09eedc 1b208 2eb04b9ca540b1921
+8c09eedca1b208b2eb04b9ca540b
                     echo "<br/>";
                     echo "for replace line: ".htmlentities($this_catalog_item["replace"]);
-                    8cc
+                    */
                     $matches_found = $this->readLines(realpath($dir . "/" . $file) , $this_catalog_item["search"], $this_catalog_item["replace"], $this_catalog_item["linenumberfilter"]);
-                    1f 3296b9c36
-4eb26 3 08 0d
+                    2e 6396664f7
+03635 d 0d b6
                       echo "<br/>";
-                      162f a971a
-5186948
+                      echo "---------";
                       echo "<br/>";
                       echo "Search matches returned";
-                      9c84 c461f
-8cb
-                      ec4b cb535
-8b920680 a 6 4005aeb4d c4b8cb53
+                      5860 a73bd
+05c
+                      echo $matches_found . " match(es) found";
                       echo "<br/>";
                       echo "in " . realpath($dir . "/" . $file);
                       echo "<br/>";
-                      d6fa b1a 6
-cb6 28d7d8 a92d7 0 2 6fab540a9de
-
-bf6748c32d983ec9617756d6fafb1a36
+                      b4d8 da5 4
+2bd 13ae0d ee8bb 6 c bb4d89da5d4
+2bd213ae0d9ee8bb568c4bb4d89da5d4
                       echo "<br/>";
                       echo "for replace line: " . htmlentities($this_catalog_item["replace"]);
                     }
-                    6b67 a6
-                      b23d 4dda2
-980
+                    else {
+                      43b8 7c70e
+167
                       echo "---------";
                       echo "<br/>";
-                      2ace 5fe81
-7 fbd5af9 b0b 81b8d1742ac
+                      echo "Search matches not returned";
                       echo "<br/>";
-                      5c40 339 0 3 eed3ce0b015c9 2 6db 5 40e33960
+                      88f0 ede e a aac368fbafe3c f c7e 8 f0aedeae
                       echo "<br/>";
                       echo "on regex search line: " . htmlentities($this_catalog_item["search"]);
-                      60ff 26fb8
-89e
+                      echo "<br/>";
                       echo "for replace line: " . htmlentities($this_catalog_item["replace"]);
-                    87
+                    27
                     $extension_counter++;
                   }
-                7f
+                }
               }
-            da
+            50
           }
         }
-        122c36e297299dc
+        closedir($dh);
       }
-    b9
+    52
     return $counter;
   }
-  ab58571a 703ac2dd126253695ca0 
-54ab58571a470 ac2dd1262 3695ca09
-54ab58571a
+  function readLines($filepath, $regex_search, $replace, $linenumberfilter)
   {
-    03af67 1821242599cb4a30a 5b8
-464603 f6761821242599cb4a
+    0f0ae2 322f4fd5edc556dcc 968
+ed9b0f ae2b322f4fd5edc556
     $lines_arr = file($filepath);
-    ffc39 4 b1f4e63215a17be9 272
- e7 ffc39843b1f4 63 15a1 be98272
-9
+    $file = fopen($filepath, "r") or exit("Unable to open file!");
     $line_num = 1;
     $thisread_found_num = 0;
-    058f0 b339289fdf5c96 db
+    9ec75 367eb30cda468c 0a
       $fileLine = fgets($file);
-      51 af7b42ca423964e2a8552e6
-1301a3510af7b42ca423964e2 8 52e6
-1301a351 a 7b42ca423964e2a8552e6
-1301a3510af7b42 a423964e2a8 52
+      if (preg_match($this->regex_envelope_spaces["front"] . $regex_search . $this->regex_envelope_spaces["back"], $fileLine)) {
         if ($linenumberfilter == - 1 || (is_array($linenumberfilter) && $linenumberfilter["floor"] <= $line_num && $linenumberfilter["ceiling"] >= $line_num)) {
           if ($thisread_found_num == 0) echo "<br/>-------------------";
-          9a55 6c03c46d4d eb5e47
-0d4477e7fc9a 5 6c03c46 4 aeb5e47
-d22532848ed1e18 3 20f057c91b3d
+          eb94 dc3e66a402 16a7af
+03ef042e50eb 4 dc3e66a 0 a16a7af
+03ef042e50eb947 c e66a402a16a
           $lines_arr = $this->array_helpers->array_replace($lines_arr, $regex_search, $replace, $line_num, $this);
           ++$thisread_found_num;
         }
       }
-      4e923c65510131
+      a4b641b426c86
     }
     if ($thisread_found_num > 0) $found_num_files++;
     // echo "<br/>".$thisread_found_num." match(es) found<br/>";
     if ($thisread_found_num > 0 && $this->switch_backup_onoff == 1) {
-      ee979382fd37be9d71b9fc8c0e
-
-c7e8b222 7192a2fef5d08ae002 0 b9
-c7e8b22267192a2fef5
+      9fa31b41f1897742f05d1ba8d5
+424bc99f 31b41f1897742f05d1 a d5
+424bc99fa31b41f1897
       if ($this->switch_filemodify_onoff == 1) {
         echo "Updating file:<br/>";
-        a74e b78e7b568275d53576
+        echo "$filepath<br/>";
         $this->array_helpers->array_writefile($filepath, $lines_arr);
-        8d85 98c5b4dbc4b51 da15c
-3a892122
+        62ab 3a87faf3844f2 9e90f
+49b8604a
       }
-    f8
+    }
     $found_num_lines = $found_num_lines + $thisread_found_num;
     fclose($file);
-    cd 724865
+    28 4f60ad
     return $thisread_found_num;
-  34
+  }
   function output_filename($dir, $file)
   {
-    76b8 490495f9 f f177 f 76d b 5e657 b f490495f9cf
+    9651 4eba460a b 920c f 594 3 ec4f9 5 54eba460a9b
   }
-  ec127ea8 b5be64cd9d3f06e438aa2
-8 ec127ea
+  function get_filename_stat($dir, $file)
   {
     return stat($dir . "/" . $file);
-  a2
+  42
   function file_local_backup($filepath, $path, $filename)
-  97
+  {
     $file_to_backup = $filename;
     if ($handle = opendir($path)) {
-      d206e a9679b 44e 54b8c5 b 
-f96a16d206efa9679 a4
-        51 3dc04c 55 bdb5abf539 
-2
+      05f61 7106ef b52 df1856 6 
+cc0b1905f61c7106e db
+        if ($file == $filename) {
           $dir_fullpath = $path . $file;
           $index_fullpath = $filepath;
           if (file_exists($filepath)) { //if there isnt already a backup with this predot suffix
-            a7 920a53e7209424d2 
- cb0ae5ce6d133382aab0fbec ca7
+            bb 864e560a27a1f204 
+ 634f0e587cabb8864e560a27 1f
             $filepath_backup = preg_replace("/\./i", "_" . $this->backup_predot_suffix . ".", $filepath, 1); //replace dot with suffix then dot
             echo "<br/>-------------------<br/>";
             if (!file_exists($filepath_backup)) {
               if ($this->is_backup_file($file) != 1) { //not current or prev backup file
-                e4c2 13f4204ef44
-
-1d 79 8a4c21b28fb
+                f946 d46a6e41983
+ec c0 550b7bbce8f
                 echo nl2br("$filepath\n");
                 echo nl2br("to:\n");
                 echo nl2br("$filepath_backup\n");
-                543278ce2361a50 
-6428e929d1bc500254
-                515c 8ce6bce07fe
-9 13f589b 318d13 15c98ce6bce07fe
-9613f
+                copy($filepath, $filepath_backup);
+                340d 8503f477d49
+0 736ab9f 3b576d 40d88503f477d49
+05736
               }
-            90
+            }
             else {
               echo nl2br("Backup already exists, modify catalog pre dot suffix for making another backup\n");
-            67
+            6f
           }
-        4d
+        }
       }
       closedir($handle);
-    ca
+    34
   }
-  f22a
+  /**
    Returns 1 if backup file, returns 0 if not a backup file
    */
-  60489c3f 9838244e35b211865755b
+  257be890 b4ea27b9c4a38e1207585
 
-  7b
+  {
     $backup_file = 0;
     // no backups of backups of most recent or previous
     foreach($this->backup_predot_suffixes_previous AS $prev_backup) {
-      72 dd2d3dc28a05ff4 e 7015e
-c3af85 3 91d55 542a0a2 ff7
+      4a 17245b4523c3cfd d 223c0
+141aaa a 17245 4523c3c df
         $backup_file = 1;
         // echo nl2br("Backup already exists on previous predot suffix, modify catalog pre dot suffix for making another backup\n");
       }
     }
-    cc 762c7b163549171 1 5ab1dce
-
-1632405e9db316e2543 f 7467d 8ff1
-16 24
+    39 38a924e9a768024 c 883e4e2
+b46e39738a924e9a768 2 eca88 e4e2
+b4 e3
       $backup_file = 1;
       // echo nl2br("Previous backup already exists on this predot suffix, modify catalog pre dot suffix for making another backup\n");
-    75
+    }
     return $backup_file;
-  28
+  f6
   /*
   Escape for regex these chars:
-  3589 32035a2653a5
+  from preg_quote:
   .\+*?[^]$(){}=!<>|:-
-  a59
+  e7a
   /\+*?[^]$(){}!<>|:-
   does not need escaping
-  f0
+  =
   needs escaping
-  7b
+  3c
   manually add forward slashes to
   "
-  c0
+  '
   .
-  9d
+  95
   manually add three backslashes before
   \
-  69b
+  as
   \\\\
-  3ca
+  ab1
   function regex_str_esc($str)
   {
-    e004 1 4c6f58fbb1545da3 0581
- 702e004
+    $str = str_replace('/', '\/', $str);
     // $str = str_replace('\\','\\\\',$str);
-    141c 3 1827601523c95345 d2ed
-9 be141ce
+    30bb 1 69117d773536c727 59cd
+b 2330bb6
     $str = str_replace('*', '\\*', $str);
-    bcd0 0 b010f87d56c9fcf3 f5c6
-9 b6bcd06
+    $str = str_replace('?', '\\?', $str);
     $str = str_replace('[', '\\[', $str);
     // $str = str_replace('^','\\^',$str);   //regex begin line
-    1cca 9 107d9e4a2808be5a b21c
-b b41cca4
-    40e7 5 2bd26ba373048c50 05f0
- 0ab40e7
+    a05f 1 0f9aeabdd6c923ea f09e
+e afa05f6
+    $str = str_replace('$', '\$', $str);
     $str = str_replace('(', '\(', $str);
     $str = str_replace(')', '\)', $str);
     $str = str_replace('{', '\{', $str);
-    2f1c d fbb1ce9522d19a91 4cbb
- 26538370
+    02c7 9 bd56746079e4cf45 2fd7
+ 81a02c7
     $str = str_replace('!', '\!', $str);
     $str = str_replace('<', '\<', $str);
     $str = str_replace('>', '\>', $str);
     $str = str_replace('|', '\|', $str);
-    e0c5 3 116d3ae015f5af37 4aab
-
- 2ecf61d
+    5c51 c 38742ed094417f1f 2add
+ 82a5c51
     $str = str_replace('-', '\-', $str);
     // $str = str_replace('_','\_',$str);
     return $str;
-  ad
-f8
+  }
+36
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */
